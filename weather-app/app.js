@@ -1,6 +1,8 @@
 const forecast = require('./utils/forecast');
 const geocode = require('./utils/geocode');
 
+// Making http request: using npm packages (axios, postman-request, node-fetch...)
+
 const address = process.argv[2];
 
 if (!address) {
