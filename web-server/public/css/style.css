@@ -1,3 +1,37 @@
+body {
+  color: #333333;
+  font-family: Arial, Helvetica, sans-serif;
+  max-width: 650px;
+  margin: 0 auto;
+  padding: 0 16px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+footer {
+  color: #888888;
+  border-top: 1px solid #eeeeee;
+  margin-top: 16px;
+  padding: 16px;
+}
+
+header {
+  margin-top: 16px;
+  margin-bottom: 48px;
+}
+
+header a {
+  color: #888888;
+  text-decoration: none;
+  margin-right: 16px;
+}
+
 h1 {
-  color: grey;
+  font-size: 64px;
+  margin-bottom: 16px;
+}
+
+.main-content {
+  flex-grow: 1;
 }

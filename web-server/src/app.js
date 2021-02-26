@@ -40,6 +40,23 @@ app.get('/help', (req, res) => {
   });
 });
 
+app.get('/help/*', (req, res) => {
+  res.render('404', {
+    title: '404 Page',
+    error: 'No information found',
+    name: 'Suyeon',
+  });
+});
+
+// 404 page
+app.get('*', (req, res) => {
+  res.render('404', {
+    title: '404 Page',
+    error: 'Page not found',
+    name: 'Suyeon',
+  });
+});
+
 app.listen(3000, () => {
   console.log('Server is up on port 3000.');
 });
