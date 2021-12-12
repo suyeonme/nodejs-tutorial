@@ -20,7 +20,7 @@
 
     <script id="message-template" type="text/html">
       <div>
-        <p>{{ message }}</p>
+        <p>{{ createdAt }} - {{ message }}</p>
       </div>
     </script>
     <script id="location-template" type="text/html">
@@ -29,6 +29,8 @@
       </div>
     </script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.10.1/qs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.0.0/mustache.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="./js/chat.js"></script>
