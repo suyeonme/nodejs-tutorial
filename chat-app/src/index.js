@@ -18,7 +18,6 @@ const {
   getUser,
   getUsersInRoom,
 } = require('./utils/users');
-const { choices } = require('yargs');
 
 const port = process.env.PORT || 3000;
 const publicDirectoryPath = path.join(__dirname, '../public');
@@ -37,27 +36,40 @@ io.on('connection', socket => {
 
     socket.join(user.room);
 
-    socket.emit('message', generateMessage('Welcome'));
+    socket.emit(
+      'message',
+      generateMessage(user.username, `Welcome ${user.username}`)
+    );
     socket.broadcast
       .to(user.room)
-      .emit('message', generateMessage(`${user.username} has joined.`));
+      .emit(
+        'message',
+        generateMessage(user.username, `${user.username} has joined.`)
+      );
 
     cb();
   });
 
   socket.on('sendMessage', (msg, callback) => {
+    const user = getUser(socket.id);
+
     const filter = new Filter();
 
     if (filter.isProfane(msg)) {
       return callback('Profanity is not allowed');
     }
-    io.to('test').emit('message', generateMessage(msg)); // (**)
+    io.to(user.room).emit('message', generateMessage(user.username, msg));
     callback();
   });
 
   socket.on('sendLocation', (coords, callback) => {
+    const user = getUser(socket.id);
     const googleMapUrl = `https://google.com/maps?q=${coords.latitude},${coords.longitude}`;
-    io.emit('locationMessage', generateLocationMessage(googleMapUrl));
+
+    io.to(user.room).emit(
+      'locationMessage',
+      generateLocationMessage(user.username, googleMapUrl)
+    );
     callback();
   });
 
@@ -67,7 +79,7 @@ io.on('connection', socket => {
     if (user) {
       io.to(user.room).emit(
         'message',
-        generateMessage(`${user.username} has left.`)
+        generateMessage(user.username, `${user.username} has left.`)
       );
     }
   });
